@@ -3,7 +3,8 @@
   "cleanUrls": true,
   "rewrites": [
     { "source": "/admin", "destination": "/admin.html" },
-    { "source": "/(.*)", "destination": "/$1" }
+    { "source": "/admin/", "destination": "/admin.html" },
+    { "source": "/api/(.*)", "destination": "/api/$1" }
   ],
   "headers": [
     {
@@ -15,4 +16,3 @@
     }
   ]
 }
-
