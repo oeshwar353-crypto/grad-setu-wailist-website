@@ -1,0 +1,1391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GradSetu — Founder Admin Console & Student Registry</title>
+  <meta name="robots" content="noindex, nofollow" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Configuration -->
+  <script>
+    window.__GOOGLE_SHEETS_WEBAPP_URL__ = 'https://script.google.com/macros/s/AKfycbxADIyI5xwdQnQbmMPhHsUfYyMgAUxia70tjLtxdHqNr99OXaRhoavTLGIr8i5Q2xdV/exec';
+  </script>
+
+  <style>
+    :root {
+      --primary-blue: #1769FF;
+      --deep-blue: #0B57D0;
+      --light-blue: #EAF2FF;
+      --soft-bg: #F5F8FF;
+      --pure-white: #FFFFFF;
+      --primary-text: #101828;
+      --secondary-text: #667085;
+      --muted-text: #98A2B3;
+      --border-color: #E4EAF2;
+      --success: #12B76A;
+      --danger: #EF4444;
+      --font-display: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 20px;
+      --shadow-sm: 0 1px 3px rgba(16, 24, 40, 0.05);
+      --shadow-md: 0 4px 16px rgba(23, 105, 255, 0.08);
+      --shadow-lg: 0 12px 32px rgba(16, 24, 40, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body.admin-body {
+      background: var(--soft-bg);
+      color: var(--primary-text);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Top Sticky Header */
+    .admin-header {
+      background: var(--pure-white);
+      border-bottom: 1px solid var(--border-color);
+      padding: 14px 28px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .admin-nav-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .brand-logo-img {
+      height: 38px;
+      width: auto;
+      object-fit: contain;
+      border-radius: var(--radius-sm);
+    }
+
+    .admin-badge {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      background: var(--light-blue);
+      border: 1px solid #C7D9FF;
+      color: var(--primary-blue);
+      font-family: var(--font-display);
+    }
+
+    .sync-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--secondary-text);
+      background: #F8FAFC;
+      padding: 6px 12px;
+      border-radius: 9999px;
+      border: 1px solid var(--border-color);
+    }
+
+    .sync-status.online {
+      background: #ECFDF5;
+      border-color: #A7F3D0;
+      color: #065F46;
+    }
+
+    .sync-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--muted-text);
+    }
+
+    .sync-status.online .sync-dot {
+      background: var(--success);
+      box-shadow: 0 0 8px rgba(18, 183, 106, 0.6);
+      animation: pulse-dot 2s infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(1.15); }
+    }
+
+    .admin-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-admin {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-color);
+      background: var(--pure-white);
+      color: var(--primary-text);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: var(--font-display);
+      text-decoration: none;
+    }
+
+    .btn-admin:hover {
+      background: #F8FAFC;
+      border-color: #CBD5E1;
+      transform: translateY(-1px);
+    }
+
+    .btn-admin-blue {
+      background: var(--primary-blue);
+      color: var(--pure-white);
+      border: 1px solid var(--primary-blue);
+      box-shadow: 0 2px 8px rgba(23, 105, 255, 0.25);
+    }
+
+    .btn-admin-blue:hover {
+      background: var(--deep-blue);
+      border-color: var(--deep-blue);
+      color: var(--pure-white);
+    }
+
+    .btn-admin-danger {
+      color: var(--danger);
+      border-color: #FECACA;
+      background: #FEF2F2;
+    }
+
+    .btn-admin-danger:hover {
+      background: #FEE2E2;
+      border-color: var(--danger);
+    }
+
+    /* Main Container */
+    .admin-container {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 32px 24px 60px;
+      width: 100%;
+      flex: 1;
+    }
+
+    /* Top Page Title */
+    .dashboard-title-bar {
+      margin-bottom: 24px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .dashboard-heading {
+      font-family: var(--font-display);
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--primary-text);
+      letter-spacing: -0.02em;
+    }
+
+    .dashboard-subheading {
+      font-size: 14px;
+      color: var(--secondary-text);
+      margin-top: 4px;
+    }
+
+    /* KPI Grid */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      margin-bottom: 28px;
+    }
+
+    .kpi-card {
+      background: var(--pure-white);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    }
+
+    .kpi-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+      border-color: #C7D9FF;
+    }
+
+    .kpi-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary-blue), #38BDF8);
+    }
+
+    .kpi-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--secondary-text);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .kpi-val {
+      font-family: var(--font-display);
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--primary-text);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+
+    .kpi-sub {
+      font-size: 13px;
+      color: var(--primary-blue);
+      font-weight: 500;
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Analytics Section */
+    .analytics-row {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 20px;
+      margin-bottom: 28px;
+    }
+
+    .chart-panel {
+      background: var(--pure-white);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .panel-title {
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--primary-text);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .lang-bar-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .lang-bar-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 13px;
+    }
+
+    .lang-bar-name {
+      width: 110px;
+      color: var(--primary-text);
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .lang-bar-track {
+      flex: 1;
+      height: 8px;
+      background: var(--soft-bg);
+      border-radius: 9999px;
+      overflow: hidden;
+      border: 1px solid #EEF2F6;
+    }
+
+    .lang-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary-blue), #38BDF8);
+      border-radius: 9999px;
+      transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .lang-bar-count {
+      width: 60px;
+      text-align: right;
+      color: var(--primary-text);
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Table Toolbar */
+    .table-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .search-box {
+      flex: 1;
+      min-width: 280px;
+      position: relative;
+    }
+
+    .search-input {
+      width: 100%;
+      background: var(--pure-white);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 10px 16px 10px 42px;
+      font-size: 14px;
+      color: var(--primary-text);
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    .search-input:focus {
+      border-color: var(--primary-blue);
+      box-shadow: 0 0 0 3px rgba(23, 105, 255, 0.12);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted-text);
+      font-size: 16px;
+      pointer-events: none;
+    }
+
+    .filter-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .filter-select {
+      background: var(--pure-white);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 9px 14px;
+      font-size: 13px;
+      color: var(--primary-text);
+      outline: none;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    .filter-select:focus {
+      border-color: var(--primary-blue);
+    }
+
+    /* Registry Table */
+    .table-card {
+      background: var(--pure-white);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    .registry-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .registry-table th {
+      background: var(--soft-bg);
+      color: var(--secondary-text);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-size: 11px;
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border-color);
+      cursor: pointer;
+      user-select: none;
+      font-family: var(--font-display);
+    }
+
+    .registry-table th:hover {
+      color: var(--primary-blue);
+    }
+
+    .registry-table td {
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border-color);
+      color: var(--primary-text);
+      font-size: 13px;
+    }
+
+    .registry-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .registry-table tr:hover td {
+      background: #F8FAFC;
+    }
+
+    .pass-tag {
+      font-weight: 700;
+      color: var(--primary-blue);
+      background: var(--light-blue);
+      border: 1px solid #C7D9FF;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-family: monospace;
+      font-size: 12px;
+    }
+
+    .wa-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      color: #065F46;
+      background: #ECFDF5;
+      border: 1px solid #A7F3D0;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .wa-btn:hover {
+      background: #D1FAE5;
+      border-color: var(--success);
+    }
+
+    .pill-badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 9999px;
+      font-size: 11px;
+      font-weight: 600;
+      background: var(--light-blue);
+      color: var(--deep-blue);
+      border: 1px solid #C7D9FF;
+    }
+
+    /* Auth Gate */
+    #auth-gate {
+      position: fixed;
+      inset: 0;
+      background: rgba(16, 24, 40, 0.6);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .gate-box {
+      background: var(--pure-white);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-xl);
+      padding: 40px;
+      width: 100%;
+      max-width: 440px;
+      text-align: center;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .gate-icon {
+      font-size: 40px;
+      margin-bottom: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      background: var(--light-blue);
+      border: 1px solid #C7D9FF;
+    }
+
+    .gate-title {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--primary-text);
+      margin-bottom: 8px;
+    }
+
+    .gate-sub {
+      font-size: 13px;
+      color: var(--secondary-text);
+      line-height: 1.5;
+      margin-bottom: 24px;
+    }
+
+    /* Setup Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(16, 24, 40, 0.5);
+      backdrop-filter: blur(6px);
+      z-index: 500;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    .guide-box {
+      background: var(--pure-white);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-xl);
+      max-width: 680px;
+      width: 100%;
+      max-height: 85vh;
+      overflow-y: auto;
+      padding: 36px;
+      position: relative;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1px solid var(--border-color);
+      background: var(--pure-white);
+      font-size: 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--secondary-text);
+    }
+
+    .modal-close:hover {
+      background: #F8FAFC;
+      color: var(--primary-text);
+    }
+
+    .guide-step {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 24px;
+      align-items: flex-start;
+    }
+
+    .step-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--primary-blue);
+      color: var(--pure-white);
+      font-weight: 800;
+      font-family: var(--font-display);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .guide-text h4 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--primary-text);
+      margin-bottom: 6px;
+    }
+
+    .guide-text p {
+      font-size: 13px;
+      color: var(--secondary-text);
+      line-height: 1.6;
+    }
+
+    .code-snippet {
+      background: var(--soft-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-family: monospace;
+      font-size: 12px;
+      color: var(--primary-blue);
+      margin-top: 8px;
+      word-break: break-all;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .kpi-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .analytics-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .kpi-grid {
+        grid-template-columns: 1fr;
+      }
+      .admin-header {
+        flex-direction: column;
+        gap: 14px;
+        align-items: stretch;
+      }
+      .admin-actions {
+        flex-wrap: wrap;
+      }
+    }
+  </style>
+</head>
+<body class="admin-body">
+
+  <!-- ============================================================
+       AUTH PASSKEY GATE (DEFAULT: gradsetu2026)
+       ============================================================ -->
+  <div id="auth-gate">
+    <div class="gate-box">
+      <div class="gate-icon">🔐</div>
+      <h2 class="gate-title">Founder Control Console</h2>
+      <p class="gate-sub">Enter your founder passkey to access student coordinates and real-time waitlist registry.</p>
+      
+      <form id="gate-form">
+        <div style="margin-bottom: 16px;">
+          <input
+            type="password"
+            id="gate-passkey"
+            class="search-input"
+            placeholder="Enter Admin Passkey..."
+            style="text-align: center; letter-spacing: 2px; font-weight: 600;"
+            required
+            autocomplete="current-password"
+          />
+        </div>
+        <button type="submit" class="btn-admin btn-admin-blue" style="width: 100%; justify-content: center; padding: 12px;">
+          Unlock Registry →
+        </button>
+      </form>
+      <div id="gate-error" style="color: var(--danger); font-size: 12px; margin-top: 12px; display: none;"></div>
+      <p style="margin-top: 20px; font-size: 12px; color: var(--muted-text);">Default Passkey: <code>gradsetu2026</code></p>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       ADMIN HEADER
+       ============================================================ -->
+  <header class="admin-header">
+    <div class="admin-nav-left">
+      <a href="/" class="brand-link" title="Return to Landing Page">
+        <img src="logo.jpeg" alt="GradSetu Logo" class="brand-logo-img" />
+      </a>
+      <span class="admin-badge">FOUNDER CONSOLE</span>
+      
+      <div id="sync-status" class="sync-status">
+        <span class="sync-dot"></span>
+        <span id="sync-text">Checking Connection...</span>
+      </div>
+    </div>
+
+    <div class="admin-actions">
+      <button id="btn-sync" class="btn-admin btn-admin-blue" title="Refresh registry & sync with Google Sheets">
+        <span id="sync-icon">🔄</span> Sync Sheets
+      </button>
+
+      <button id="btn-export" class="btn-admin">
+        📥 Export CSV
+      </button>
+
+      <button id="btn-settings" class="btn-admin">
+        ⚙️ Sheets Config
+      </button>
+
+      <button id="btn-reset-data" class="btn-admin" style="color: #D97706;" title="Wipe test registrations to test fresh">
+        🧹 Reset Cache
+      </button>
+
+      <button id="btn-guide" class="btn-admin">
+        📖 Setup Guide
+      </button>
+
+      <button id="btn-logout" class="btn-admin btn-admin-danger">
+        🚪 Lock
+      </button>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       MAIN DASHBOARD CONTAINER
+       ============================================================ -->
+  <main class="admin-container">
+
+    <div class="dashboard-title-bar">
+      <div>
+        <h1 class="dashboard-heading">Early Access Student Registry</h1>
+        <p class="dashboard-subheading">Live coordinates and verified registrations linked directly to your Google Sheet.</p>
+      </div>
+    </div>
+
+    <!-- KPI Cards -->
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">
+          <span>Registered Students</span>
+          <span>🎓</span>
+        </div>
+        <div class="kpi-val" id="kpi-total">0</div>
+        <div class="kpi-sub">
+          <span>100% Verified Profiles</span>
+        </div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-label">
+          <span>Colleges & Campuses</span>
+          <span>🏛️</span>
+        </div>
+        <div class="kpi-val" id="kpi-colleges">0</div>
+        <div class="kpi-sub">
+          <span id="kpi-cities">0</span> campus cities
+        </div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-label">
+          <span>Native Hometowns</span>
+          <span>📍</span>
+        </div>
+        <div class="kpi-val" id="kpi-hometowns">0</div>
+        <div class="kpi-sub">
+          <span>Pan-India student origins</span>
+        </div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-label">
+          <span>Viral Referrals</span>
+          <span>⚡</span>
+        </div>
+        <div class="kpi-val" id="kpi-referrals">0</div>
+        <div class="kpi-sub">
+          <span id="kpi-coeff">0.0</span> invites / student
+        </div>
+      </div>
+    </div>
+
+    <!-- Analytics Breakdown -->
+    <div class="analytics-row">
+      <!-- Languages Spoken Breakdown -->
+      <div class="chart-panel">
+        <div class="panel-title">
+          <span>🗣️ Languages Known & Used</span>
+          <span style="font-size: 12px; color: var(--secondary-text); font-weight: normal;">Multi-language distribution</span>
+        </div>
+        <div id="lang-list" class="lang-bar-list">
+          <!-- Filled dynamically -->
+        </div>
+      </div>
+
+      <!-- Quick Metrics Breakdown -->
+      <div class="chart-panel">
+        <div class="panel-title">
+          <span>⚡ Launch Readiness Countdown</span>
+          <span style="font-size: 12px; color: var(--primary-blue); font-weight: 700;">Nov 20, 12 PM IST</span>
+        </div>
+        <div style="padding: 16px; background: var(--soft-bg); border-radius: 12px; border: 1px solid var(--border-color); margin-bottom: 16px;">
+          <div style="font-size: 11px; font-weight: 700; color: var(--secondary-text); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 4px;">STEALTH LAUNCH TARGET</div>
+          <div style="font-size: 16px; font-weight: 800; color: var(--primary-text); font-family: var(--font-display);">20 November 2026, 12:00:00 PM IST</div>
+          <div style="font-size: 12px; color: var(--secondary-text); margin-top: 4px;">Blindfold comes off across 800+ Indian campuses.</div>
+        </div>
+
+        <div style="font-size: 13px; color: var(--secondary-text); line-height: 1.8;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+            <span>Data Sync Mode:</span>
+            <strong id="info-sync-mode" style="color: var(--primary-text);">Checking...</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+            <span>Connected Sheet:</span>
+            <strong style="color: var(--primary-text);">GradSetu_Waitlist</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span>Columns Mapped:</span>
+            <strong style="color: var(--success);">15 Exact Spec Headers</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Student Registry Table Header & Controls -->
+    <div class="table-toolbar">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input
+          type="text"
+          id="table-search"
+          class="search-input"
+          placeholder="Instant search by Name, College, City, Hometown, Branch, or Language..."
+        />
+      </div>
+
+      <div class="filter-group">
+        <select id="filter-dept" class="filter-select">
+          <option value="">All Departments</option>
+          <option value="CSE">CSE / AI / IT</option>
+          <option value="ECE">ECE / Electronics</option>
+          <option value="Mechanical">Mechanical / Civil</option>
+          <option value="Management">Management / BBA</option>
+          <option value="Other">Other</option>
+        </select>
+
+        <select id="filter-year" class="filter-select">
+          <option value="">All Years</option>
+          <option value="1st Year">1st Year</option>
+          <option value="2nd Year">2nd Year</option>
+          <option value="3rd Year">3rd Year</option>
+          <option value="4th Year">4th Year</option>
+          <option value="5th Year">5th / Dual</option>
+          <option value="Class 12">Class 12 Aspirant</option>
+        </select>
+
+        <button id="btn-reset-filters" class="btn-admin" style="padding: 9px 14px;">
+          Reset
+        </button>
+      </div>
+    </div>
+
+    <!-- Student Registry Table -->
+    <div class="table-card">
+      <div class="table-responsive">
+        <table class="registry-table">
+          <thead>
+            <tr>
+              <th data-sort="pass_id">Pass ID ↕</th>
+              <th data-sort="full_name">Student Name ↕</th>
+              <th>WhatsApp Contact</th>
+              <th data-sort="email">Email Address ↕</th>
+              <th data-sort="college_name">College / Campus ↕</th>
+              <th data-sort="college_city">Campus City ↕</th>
+              <th>Branch</th>
+              <th>Year</th>
+              <th data-sort="hometown_city">Hometown Origin ↕</th>
+              <th>Languages Known</th>
+              <th data-sort="referral_count">Invites ↕</th>
+              <th data-sort="timestamp">Registered (IST) ↕</th>
+            </tr>
+          </thead>
+          <tbody id="registry-body">
+            <!-- Populated dynamically -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ============================================================
+       GOOGLE SHEETS SETUP GUIDE MODAL
+       ============================================================ -->
+  <div id="modal-guide" class="modal-overlay">
+    <div class="guide-box">
+      <button class="modal-close" id="guide-close">×</button>
+      <h3 style="font-size: 20px; font-weight: 800; color: var(--primary-text); margin-bottom: 8px; font-family: var(--font-display);">
+        📖 Google Sheets Real-Time Sync Setup Guide
+      </h3>
+      <p style="font-size: 13px; color: var(--secondary-text); margin-bottom: 24px;">
+        Follow these 3 simple steps to connect your GradSetu waitlist directly to Google Sheets:
+      </p>
+
+      <div style="background: #ECFDF5; border: 1px solid #A7F3D0; border-radius: 12px; padding: 16px; margin-bottom: 20px;">
+        <h4 style="font-size: 14px; color: #065F46; font-weight: 700; margin-bottom: 6px;">🛡️ 100% Private to You (Zero Leakage)</h4>
+        <p style="font-size: 12px; color: #047857; line-height: 1.6;">
+          Your Google Sheet itself remains completely private to your Google account (Restricted - Only you).
+          The Web App acts strictly as an <strong>append-only API gateway</strong> with client-secret token verification.
+        </p>
+      </div>
+
+      <div class="guide-step">
+        <div class="step-num">1</div>
+        <div class="guide-text">
+          <h4>Open Google Sheets & Apps Script</h4>
+          <p>Create a fresh Google Sheet at <a href="https://sheets.new" target="_blank" style="color: var(--primary-blue); font-weight: 600;">sheets.new</a>. Go to <strong>Extensions → Apps Script</strong>.</p>
+        </div>
+      </div>
+
+      <div class="guide-step">
+        <div class="step-num">2</div>
+        <div class="guide-text">
+          <h4>Copy & Paste <code>google-apps-script/Code.gs</code></h4>
+          <p>Delete any existing code in the editor, and paste the contents of your local file:</p>
+          <div class="code-snippet">c:\...\GradSetu Waitlist LandingPage\google-apps-script\Code.gs</div>
+        </div>
+      </div>
+
+      <div class="guide-step">
+        <div class="step-num">3</div>
+        <div class="guide-text">
+          <h4>Deploy as Web App (Public Access)</h4>
+          <p>Click <strong>Deploy → New deployment</strong>. Select type <strong>Web app</strong>:</p>
+          <ul style="margin: 8px 0 8px 20px; font-size: 12px; color: var(--secondary-text);">
+            <li><strong>Execute as:</strong> Me (your Google account)</li>
+            <li><strong>Who has access:</strong> <span style="color: var(--success); font-weight: 700;">Anyone</span> (Critical so students can register)</li>
+          </ul>
+          <p>Click <strong>Deploy</strong>, authorize permissions, and copy the generated Web App URL.</p>
+        </div>
+      </div>
+
+      <div style="background: var(--light-blue); border: 1px solid #C7D9FF; border-radius: 12px; padding: 16px; margin-top: 16px;">
+        <h4 style="font-size: 14px; color: var(--deep-blue); font-weight: 700; margin-bottom: 6px;">💡 Connect with 1 Click</h4>
+        <p style="font-size: 12px; color: var(--secondary-text); margin-bottom: 12px;">Click "Sheets Config" in the top bar and paste your URL. The app will immediately start writing every new pass directly into your Google Sheet!</p>
+        <button id="btn-open-config-from-guide" class="btn-admin btn-admin-blue" style="font-size: 12px; padding: 8px 14px;">
+          Paste Web App URL Now →
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       GOOGLE SHEETS CONFIG MODAL
+       ============================================================ -->
+  <div id="modal-config" class="modal-overlay">
+    <div class="guide-box" style="max-width: 520px;">
+      <button class="modal-close" id="config-close">×</button>
+      <h3 style="font-size: 20px; font-weight: 800; color: var(--primary-text); margin-bottom: 8px; font-family: var(--font-display);">
+        ⚙️ Google Sheets Connection
+      </h3>
+      <p style="font-size: 13px; color: var(--secondary-text); margin-bottom: 24px;">
+        Paste your deployed Google Apps Script Web App URL below:
+      </p>
+
+      <form id="config-form">
+        <div style="margin-bottom: 16px;">
+          <label style="font-size: 12px; font-weight: 700; color: var(--secondary-text); display: block; margin-bottom: 6px;">
+            GOOGLE APPS SCRIPT WEB APP URL
+          </label>
+          <input
+            type="url"
+            id="cfg-sheets-url"
+            class="search-input"
+            placeholder="https://script.google.com/macros/s/AKfycb.../exec"
+            style="padding-left: 16px; font-family: monospace; font-size: 13px;"
+          />
+        </div>
+
+        <div style="margin-bottom: 24px;">
+          <label style="font-size: 12px; font-weight: 700; color: var(--secondary-text); display: block; margin-bottom: 6px;">
+            FOUNDER ADMIN PASSKEY
+          </label>
+          <input
+            type="text"
+            id="cfg-passkey"
+            class="search-input"
+            value="gradsetu2026"
+            style="padding-left: 16px; font-family: monospace;"
+          />
+        </div>
+
+        <div style="display: flex; gap: 12px;">
+          <button type="submit" class="btn-admin btn-admin-blue" style="flex: 1; justify-content: center;">
+            Save & Test Sync
+          </button>
+          <button type="button" id="btn-clear-url" class="btn-admin" style="color: var(--danger);">
+            Clear (Use Local)
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SCRIPTS
+       ============================================================ -->
+  <script type="module">
+    import { googleSheetsService } from './js/googleSheetsService.js';
+
+    let allUsers = [];
+    let currentSort = { column: 'timestamp', asc: false };
+
+    // --- Auth Check ---
+    const gate = document.getElementById('auth-gate');
+    const gateForm = document.getElementById('gate-form');
+    const gateError = document.getElementById('gate-error');
+    const gateInput = document.getElementById('gate-passkey');
+
+    function checkAuth() {
+      const authed = sessionStorage.getItem('gs_admin_authed');
+      if (authed === 'true') {
+        gate.style.display = 'none';
+        loadDashboard();
+      } else {
+        gate.style.display = 'flex';
+        gateInput.focus();
+      }
+    }
+
+    gateForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const entered = gateInput.value.trim();
+      const validKey = googleSheetsService.getAdminPasskey();
+
+      if (entered === validKey) {
+        sessionStorage.setItem('gs_admin_authed', 'true');
+        gate.style.display = 'none';
+        loadDashboard();
+      } else {
+        gateError.textContent = 'Invalid passkey. Please check and try again.';
+        gateError.style.display = 'block';
+      }
+    });
+
+    document.getElementById('btn-logout').addEventListener('click', () => {
+      sessionStorage.removeItem('gs_admin_authed');
+      window.location.reload();
+    });
+
+    // --- Load Dashboard Data ---
+    async function loadDashboard() {
+      const syncIcon = document.getElementById('sync-icon');
+      if (syncIcon) {
+        syncIcon.style.display = 'inline-block';
+        syncIcon.style.animation = 'spin 0.6s linear infinite';
+      }
+
+      const passkey = googleSheetsService.getAdminPasskey();
+      const res = await googleSheetsService.getAdminData(passkey);
+
+      if (syncIcon) syncIcon.style.animation = 'none';
+
+      if (res && res.users) {
+        allUsers = res.users;
+        updateKPIs(res.stats, allUsers);
+        updateLanguages(res.stats.languageBreakdown, allUsers.length);
+        renderTable();
+        updateSyncStatus(res.isLiveSheets);
+      }
+    }
+
+    function updateSyncStatus(isLive) {
+      const el = document.getElementById('sync-status');
+      const txt = document.getElementById('sync-text');
+      const info = document.getElementById('info-sync-mode');
+
+      if (isLive) {
+        el.className = 'sync-status online';
+        txt.textContent = 'Google Sheets Connected';
+        info.textContent = 'Live Google Sheets API';
+        info.style.color = 'var(--success)';
+      } else {
+        el.className = 'sync-status';
+        txt.textContent = 'Local Cache / Offline Ready';
+        info.textContent = 'Local Cache (Auto-syncs when online)';
+        info.style.color = 'var(--primary-blue)';
+      }
+    }
+
+    function updateKPIs(stats, users) {
+      document.getElementById('kpi-total').textContent = stats.totalUsers || users.length;
+      document.getElementById('kpi-colleges').textContent = stats.uniqueColleges || 0;
+      document.getElementById('kpi-cities').textContent = stats.uniqueCampusCities || 0;
+      document.getElementById('kpi-hometowns').textContent = stats.uniqueHometowns || 0;
+      document.getElementById('kpi-referrals').textContent = stats.totalReferrals || 0;
+
+      const coeff = users.length ? (stats.totalReferrals / users.length).toFixed(1) : '0.0';
+      document.getElementById('kpi-coeff').textContent = coeff;
+    }
+
+    function updateLanguages(langMap, total) {
+      const container = document.getElementById('lang-list');
+      container.innerHTML = '';
+
+      if (!langMap || Object.keys(langMap).length === 0) {
+        container.innerHTML = '<div style="color: var(--secondary-text); font-size: 13px;">No language data yet.</div>';
+        return;
+      }
+
+      // Sort descending
+      const sorted = Object.entries(langMap).sort((a, b) => b[1] - a[1]);
+      const maxCount = sorted[0] ? sorted[0][1] : 1;
+
+      sorted.slice(0, 7).forEach(([lang, count]) => {
+        const pct = Math.round((count / (total || 1)) * 100);
+        const barWidth = Math.max(8, Math.round((count / maxCount) * 100));
+
+        const item = document.createElement('div');
+        item.className = 'lang-bar-item';
+        item.innerHTML = `
+          <div class="lang-bar-name" title="${lang}">${lang}</div>
+          <div class="lang-bar-track">
+            <div class="lang-bar-fill" style="width: ${barWidth}%;"></div>
+          </div>
+          <div class="lang-bar-count">${count} <span style="font-size: 11px; color: var(--secondary-text); font-weight: normal;">(${pct}%)</span></div>
+        `;
+        container.appendChild(item);
+      });
+    }
+
+    // --- Render Registry Table ---
+    function renderTable() {
+      const tbody = document.getElementById('registry-body');
+      tbody.innerHTML = '';
+
+      const query = (document.getElementById('table-search')?.value || '').toLowerCase().trim();
+      const filterDept = document.getElementById('filter-dept')?.value || '';
+      const filterYear = document.getElementById('filter-year')?.value || '';
+
+      let filtered = allUsers.filter(u => {
+        if (!u) return false;
+        // Search text
+        if (query) {
+          const haystack = [
+            u.pass_id, u.full_name, u.email, u.whatsapp_number,
+            u.college_name, u.college_city, u.hometown_city,
+            u.department, u.year_of_study, u.languages_known
+          ].join(' ').toLowerCase();
+
+          if (!haystack.includes(query)) return false;
+        }
+
+        // Dept filter
+        if (filterDept && !(u.department || '').toLowerCase().includes(filterDept.toLowerCase())) {
+          return false;
+        }
+
+        // Year filter
+        if (filterYear && !(u.year_of_study || '').toLowerCase().includes(filterYear.toLowerCase())) {
+          return false;
+        }
+
+        return true;
+      });
+
+      // Sort
+      filtered.sort((a, b) => {
+        let vA = a[currentSort.column] || '';
+        let vB = b[currentSort.column] || '';
+
+        if (typeof vA === 'number' || (!isNaN(Number(vA)) && vA !== '')) {
+          return currentSort.asc ? Number(vA) - Number(vB) : Number(vB) - Number(vA);
+        }
+
+        vA = vA.toString().toLowerCase();
+        vB = vB.toString().toLowerCase();
+
+        if (vA < vB) return currentSort.asc ? -1 : 1;
+        if (vA > vB) return currentSort.asc ? 1 : -1;
+        return 0;
+      });
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="12" style="text-align: center; padding: 40px; color: var(--secondary-text);">
+              No students match your filter criteria.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      filtered.forEach(u => {
+        const phoneStr = (u.whatsapp_number !== undefined && u.whatsapp_number !== null) ? u.whatsapp_number.toString() : '';
+        const cleanPhone = phoneStr.replace(/[^0-9]/g, '').slice(-10);
+        const waMsg = encodeURIComponent(`Hi ${u.full_name}, congratulations on securing Pass #${u.pass_id} for GradSetu!`);
+        const waLink = `https://wa.me/91${cleanPhone}?text=${waMsg}`;
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><span class="pass-tag">${u.pass_id || 'GS-???'}</span></td>
+          <td style="font-weight: 700; color: var(--primary-text);">${escapeHtml(u.full_name)}</td>
+          <td>
+            <a href="${waLink}" target="_blank" rel="noopener" class="wa-btn" title="Open direct WhatsApp chat">
+              💬 +91 ${cleanPhone}
+            </a>
+          </td>
+          <td style="color: var(--secondary-text);">${escapeHtml(u.email)}</td>
+          <td style="max-width: 220px; overflow: hidden; text-overflow: ellipsis; font-weight: 500;" title="${escapeHtml(u.college_name)}">
+            ${escapeHtml(u.college_name)}
+          </td>
+          <td><span class="pill-badge">${escapeHtml(u.college_city)}</span></td>
+          <td style="color: var(--secondary-text);">${escapeHtml(u.department)}</td>
+          <td>${escapeHtml(u.year_of_study)}</td>
+          <td style="color: var(--primary-blue); font-weight: 500;">📍 ${escapeHtml(u.hometown_city)}</td>
+          <td style="max-width: 180px; overflow: hidden; text-overflow: ellipsis; color: var(--secondary-text);" title="${escapeHtml(u.languages_known)}">
+            ${escapeHtml(u.languages_known)}
+          </td>
+          <td style="text-align: center; font-weight: 700; color: ${u.referral_count > 0 ? 'var(--primary-blue)' : 'var(--muted-text)'};">
+            ${u.referral_count || 0}
+          </td>
+          <td style="color: var(--secondary-text); font-size: 11px;">${escapeHtml(u.timestamp)}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return str.toString()
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    // --- Search & Filter Listeners ---
+    document.getElementById('table-search')?.addEventListener('input', renderTable);
+    document.getElementById('filter-dept')?.addEventListener('change', renderTable);
+    document.getElementById('filter-year')?.addEventListener('change', renderTable);
+    document.getElementById('btn-reset-filters')?.addEventListener('click', () => {
+      document.getElementById('table-search').value = '';
+      document.getElementById('filter-dept').value = '';
+      document.getElementById('filter-year').value = '';
+      renderTable();
+    });
+
+    // --- Sorting ---
+    document.querySelectorAll('.registry-table th[data-sort]').forEach(th => {
+      th.addEventListener('click', () => {
+        const col = th.getAttribute('data-sort');
+        if (currentSort.column === col) {
+          currentSort.asc = !currentSort.asc;
+        } else {
+          currentSort.column = col;
+          currentSort.asc = true;
+        }
+        renderTable();
+      });
+    });
+
+    // --- Actions ---
+    document.getElementById('btn-sync')?.addEventListener('click', loadDashboard);
+
+    document.getElementById('btn-reset-data')?.addEventListener('click', () => {
+      if (confirm('Are you sure you want to clear your local cache? (Google Sheets data is preserved)')) {
+        googleSheetsService.clearLocalUsers();
+        loadDashboard();
+      }
+    });
+
+    document.getElementById('btn-export')?.addEventListener('click', () => {
+      googleSheetsService.exportToCSV(allUsers);
+    });
+
+    // --- Modals ---
+    const modalGuide = document.getElementById('modal-guide');
+    const modalConfig = document.getElementById('modal-config');
+
+    document.getElementById('btn-guide')?.addEventListener('click', () => {
+      modalGuide?.classList.add('open');
+    });
+    document.getElementById('guide-close')?.addEventListener('click', () => {
+      modalGuide?.classList.remove('open');
+    });
+
+    document.getElementById('btn-settings')?.addEventListener('click', () => {
+      document.getElementById('cfg-sheets-url').value = googleSheetsService.getWebAppUrl();
+      document.getElementById('cfg-passkey').value = googleSheetsService.getAdminPasskey();
+      modalConfig?.classList.add('open');
+    });
+    document.getElementById('config-close')?.addEventListener('click', () => {
+      modalConfig?.classList.remove('open');
+    });
+
+    document.getElementById('btn-open-config-from-guide')?.addEventListener('click', () => {
+      modalGuide?.classList.remove('open');
+      document.getElementById('cfg-sheets-url').value = googleSheetsService.getWebAppUrl();
+      document.getElementById('cfg-passkey').value = googleSheetsService.getAdminPasskey();
+      modalConfig?.classList.add('open');
+    });
+
+    // Save Config Form
+    document.getElementById('config-form')?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const url = document.getElementById('cfg-sheets-url').value.trim();
+      const key = document.getElementById('cfg-passkey').value.trim();
+
+      googleSheetsService.setWebAppUrl(url);
+      googleSheetsService.setAdminPasskey(key);
+      modalConfig?.classList.remove('open');
+
+      loadDashboard();
+    });
+
+    document.getElementById('btn-clear-url')?.addEventListener('click', () => {
+      googleSheetsService.setWebAppUrl('');
+      document.getElementById('cfg-sheets-url').value = '';
+      modalConfig?.classList.remove('open');
+      loadDashboard();
+    });
+
+    // Close on overlay click
+    [modalGuide, modalConfig].forEach(m => {
+      m?.addEventListener('click', (e) => {
+        if (e.target === m) m.classList.remove('open');
+      });
+    });
+
+    // Initialize
+    checkAuth();
+  </script>
+</body>
+</html>

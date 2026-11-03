@@ -1,0 +1,7 @@
+# Dependencies & build
+node_modules/
+.vercel/
+
+# OS metadata
+.DS_Store
+Thumbs.db

@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="GradSetu — The Bridge Between Students & Their Future. Something unspoken is crossing your campus gate. Soft launch Nov 20, 2026. Claim your early access pass." />
+  <meta name="theme-color" content="#FFFFFF" />
+
+  <!-- Open Graph -->
+  <meta property="og:title"       content="GradSetu — Claim Your Early Access Pass" />
+  <meta property="og:description" content="Something massive for college students drops on Nov 20. No brochures, no fluff. Lock in your coordinates before the gate closes." />
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://gradsetu.in" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="GradSetu — Something Is Crossing Your Campus Gate." />
+  <meta name="twitter:description" content="Stealth Drop 01. Soft launch Nov 20, 2026 at 12:00 PM IST." />
+
+  <title>GradSetu — The Gate Opens Nov 20</title>
+
+  <!-- Fonts: Plus Jakarta Sans + Inter + Caveat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Caveat:wght@600&display=swap" rel="stylesheet" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- Configuration -->
+  <script>
+    window.__GOOGLE_SHEETS_WEBAPP_URL__ = 'https://script.google.com/macros/s/AKfycbxADIyI5xwdQnQbmMPhHsUfYyMgAUxia70tjLtxdHqNr99OXaRhoavTLGIr8i5Q2xdV/exec';
+    window.__SUPABASE_URL__ = '';  // Optional
+    window.__SUPABASE_KEY__ = '';  // Optional
+    window.__USE_MOCK__     = false;
+  </script>
+
+  <!-- Keyframe for SVG draw-in -->
+  <style>
+    @keyframes draw-in {
+      to { stroke-dashoffset: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ============================================================
+     CONFETTI CANVAS
+     ============================================================ -->
+<canvas id="confetti-canvas" style="display:none; position:fixed; inset:0; z-index:9999; pointer-events:none;"></canvas>
+
+<!-- ============================================================
+     TOAST CONTAINER
+     ============================================================ -->
+<div id="toast-container" aria-live="polite"></div>
+
+<!-- ============================================================
+     MOBILE NAV OVERLAY
+     ============================================================ -->
+<nav id="mobile-nav-overlay" class="mobile-nav-overlay" role="navigation" aria-label="Mobile navigation">
+  <button id="mobile-nav-close" class="mobile-nav-close" aria-label="Close menu">×</button>
+  <ul class="mobile-nav-links">
+    <li><a href="#manifesto">The Shift</a></li>
+    <li><a href="#vault">Classified</a></li>
+    <li><a href="#access">Early Access</a></li>
+  </ul>
+</nav>
+
+<!-- ============================================================
+     STICKY HEADER
+     ============================================================ -->
+<header id="site-header" role="banner">
+  <div class="header-inner">
+
+    <!-- Logo -->
+    <a href="/" class="logo" aria-label="GradSetu Home">
+      <img src="logo.jpeg" alt="GradSetu Logo" class="site-logo-img" />
+    </a>
+
+    <!-- Desktop Nav -->
+    <nav aria-label="Main navigation">
+      <ul class="nav-links">
+        <li><a href="#manifesto">The Shift</a></li>
+        <li><a href="#vault">Classified</a></li>
+        <li><a href="#access">Early Access</a></li>
+      </ul>
+    </nav>
+
+    <!-- Right: Status + CTA -->
+    <div class="header-right">
+      <div class="status-pill" aria-label="Soft launch date: November 20, 12 PM IST">
+        <span class="pulse-dot" aria-hidden="true"></span>
+        SOFT LAUNCH: 20 NOV&nbsp;•&nbsp;12:00 PM IST
+      </div>
+      <button id="btn-check-pass" class="btn-check-pass" aria-label="Check your waitlist pass status">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="4" width="18" height="16" rx="2"></rect>
+          <path d="m9 10 2 2 4-4"></path>
+        </svg>
+        Check My Pass
+      </button>
+      <!-- Mobile hamburger -->
+      <button id="nav-toggle" class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+  </div>
+</header>
+
+<!-- ============================================================
+     MAIN CONTENT
+     ============================================================ -->
+<main>
+
+  <!-- ===========================================================
+       HERO SECTION
+       =========================================================== -->
+  <section id="hero" aria-labelledby="hero-headline">
+
+    <!-- Hero Text Block -->
+    <div class="hero-text-block">
+
+      <!-- Small Announcement Badge -->
+      <div class="hero-eyebrow" aria-label="Early Access announcement">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+        </svg>
+        EARLY ACCESS // INVITE-ONLY ACCESS
+      </div>
+
+      <!-- Main Headline -->
+      <h1 class="hero-headline" id="hero-headline">
+        <span class="line">Something Unspoken</span>
+        <span class="line">Is Crossing Your Campus Gate.</span>
+      </h1>
+
+      <!-- Supporting Highlighted Heading -->
+      <p class="hero-headline-gold">GradSetu Is Almost Here.</p>
+
+      <!-- Description -->
+      <p class="hero-subline">
+        Break past campus walls and scripted brochures. Connect across institutions, discover verified opportunities, and access unfiltered intelligence that moves your future forward.
+      </p>
+
+      <!-- Launch Countdown Timer -->
+      <div class="countdown-wrapper" aria-label="Countdown to launch">
+        <p class="countdown-label">THE GATE OPENS IN</p>
+        <div class="countdown-digits" role="timer">
+          <div class="cd-block">
+            <div class="cd-number" id="cd-days" aria-label="Days">365</div>
+            <span class="cd-unit">DAYS</span>
+          </div>
+          <span class="cd-sep" aria-hidden="true">:</span>
+          <div class="cd-block">
+            <div class="cd-number" id="cd-hours" aria-label="Hours">00</div>
+            <span class="cd-unit">HRS</span>
+          </div>
+          <span class="cd-sep" aria-hidden="true">:</span>
+          <div class="cd-block">
+            <div class="cd-number" id="cd-mins" aria-label="Minutes">00</div>
+            <span class="cd-unit">MINS</span>
+          </div>
+          <span class="cd-sep" aria-hidden="true">:</span>
+          <div class="cd-block">
+            <div class="cd-number" id="cd-secs" aria-label="Seconds">00</div>
+            <span class="cd-unit">SECS</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA Buttons -->
+      <div class="hero-cta-group">
+        <button id="btn-hero-cta" class="btn-primary" aria-label="Claim your early access pass">
+          Claim Your Early Access Pass &nbsp;→
+        </button>
+        <a href="#manifesto" class="btn-secondary" id="btn-hero-secondary" aria-label="Discover The Shift">
+          Discover The Shift
+        </a>
+      </div>
+
+      <!-- Social Proof Bar -->
+      <div class="social-proof" aria-live="polite">
+        <div class="avatar-stack" aria-hidden="true">
+          <div class="av av-a">A</div>
+          <div class="av av-b">P</div>
+          <div class="av av-c">R</div>
+          <div class="av av-d">S</div>
+          <div class="av av-e">K</div>
+        </div>
+        <p class="proof-text">
+          Join <span id="proof-count">79+ students across India</span> getting early access to GradSetu.
+        </p>
+      </div>
+
+    </div><!-- /hero-text-block -->
+
+    <!-- Referral notice (shown if ?ref= is in URL) -->
+    <div id="referral-notice">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+        <line x1="7" y1="7" x2="7.01" y2="7"></line>
+      </svg>
+      <span>You were invited! Referral code: <strong id="referral-code-display"></strong> applied.</span>
+    </div>
+
+    <!-- ── REELMARK CURVED CAROUSEL ── -->
+    <div id="carousel-section" role="region" aria-label="GradSetu campus highlights">
+      <canvas id="carousel-canvas" aria-hidden="true"></canvas>
+
+      <!-- Hand-drawn SVG Notes overlay (Electric Blue) -->
+      <svg id="carousel-notes-svg" xmlns="http://www.w3.org/2000/svg"
+           style="position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:4; overflow:visible;">
+
+        <!-- "//" doodle mark left side -->
+        <text x="5%" y="55%" font-family="Caveat, cursive" font-size="28" font-weight="600"
+              fill="#1769FF" opacity="0.8" style="animation: badge-pop 0.6s ease 2s both;">//</text>
+
+        <!-- "Be seen / with GradSetu" note top-right with arrow -->
+        <g transform="rotate(16, 88%, 30%)" style="transform-origin: 88% 30%;">
+          <text x="82%" y="28%" font-family="Caveat, cursive" font-size="18" font-weight="600"
+                fill="#1769FF" opacity="0" style="animation: badge-pop 0.6s ease 2.1s forwards;">Be seen</text>
+          <text x="81%" y="34%" font-family="Caveat, cursive" font-size="18" font-weight="600"
+                fill="#0B57D0" opacity="0" style="animation: badge-pop 0.6s ease 2.2s forwards;">with GradSetu</text>
+        </g>
+
+        <!-- Curving arrow (starts below note, curls toward cards) -->
+        <path d="M 1260 145 C 1240 180 1200 220 1150 300"
+              fill="none" stroke="#1769FF" stroke-width="1.8" stroke-linecap="round"
+              class="draw-path" opacity="0.7"
+              marker-end="url(#arrowhead)"/>
+
+        <!-- "Zero cost" note near CTA -->
+        <g transform="rotate(20, 38%, 87%)" style="transform-origin: 38% 87%;">
+          <text x="34%" y="93%" font-family="Caveat, cursive" font-size="18" font-weight="600"
+                fill="#1769FF" opacity="0" style="animation: badge-pop 0.5s ease 2.4s forwards;">Always free ✦</text>
+        </g>
+
+        <!-- Arrow from "Zero cost" up -->
+        <path d="M 510 385 C 520 370 540 355 560 340"
+              fill="none" stroke="#1769FF" stroke-width="1.5" stroke-linecap="round"
+              class="draw-path" opacity="0.6"
+              marker-end="url(#arrowhead)"/>
+
+        <!-- Arrow definition -->
+        <defs>
+          <marker id="arrowhead" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L6,3 Z" fill="#1769FF" opacity="0.8"/>
+          </marker>
+        </defs>
+      </svg>
+    </div><!-- /carousel-section -->
+
+  </section><!-- /hero -->
+
+
+  <!-- ===========================================================
+       PAGE 4: THE SHIFT (#manifesto)
+       =========================================================== -->
+  <section id="manifesto" aria-labelledby="manifesto-title">
+    <div class="container">
+
+      <div class="manifesto-grid">
+
+        <div class="manifesto-left">
+          <div class="section-label reveal">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9"></path>
+              <path d="M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5"></path>
+              <circle cx="12" cy="12" r="2"></circle>
+              <path d="M16.2 7.8c2.3 2.3 2.3 6.1 0 8.5"></path>
+              <path d="M19.1 4.9C23 8.8 23 15.2 19.1 19.1"></path>
+            </svg>
+            THE SHIFT
+          </div>
+          <h2 class="manifesto-title reveal reveal-delay-1" id="manifesto-title">
+            The Information Gap<br /><span class="highlight-blue">Was Never Meant To Be Normal.</span>
+          </h2>
+          <p class="manifesto-body reveal reveal-delay-2">
+            Every year, millions of students make the most consequential decisions of their lives with incomplete information. We're building the bridge between students and the opportunities they deserve.
+          </p>
+
+          <div class="manifesto-stats reveal reveal-delay-3">
+            <div class="stat-item">
+              <div class="stat-number">800+</div>
+              <div class="stat-label">Campuses in scope</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">28</div>
+              <div class="stat-label">States covered</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">Day 01</div>
+              <div class="stat-label">Access privilege</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="manifesto-right reveal reveal-delay-2">
+          <!-- Card 1 -->
+          <div class="mini-card">
+            <div class="mini-card-icon-wrap" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
+              </svg>
+            </div>
+            <div class="mini-card-title">1. Unfiltered Signal</div>
+            <div class="mini-card-text">Real information. No marketing layers. No unnecessary noise.</div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="mini-card">
+            <div class="mini-card-icon-wrap" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+              </svg>
+            </div>
+            <div class="mini-card-title">2. Real Decisions</div>
+            <div class="mini-card-text">Built for the moments that actually matter — before you commit.</div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="mini-card">
+            <div class="mini-card-icon-wrap" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="2" y1="12" x2="22" y2="12"></line>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+              </svg>
+            </div>
+            <div class="mini-card-title">3. Cross-Campus</div>
+            <div class="mini-card-text">Connect beyond your college boundaries.</div>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="mini-card">
+            <div class="mini-card-icon-wrap" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                <polyline points="9 12 11 14 15 10"></polyline>
+              </svg>
+            </div>
+            <div class="mini-card-title">4. Verified Intel</div>
+            <div class="mini-card-text">Information from verified people, not random forwarded messages.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===========================================================
+       PAGE 5: CLASSIFIED VAULT (#vault)
+       =========================================================== -->
+  <section id="vault" aria-labelledby="vault-title">
+    <div class="container">
+
+      <div class="vault-header">
+        <div class="section-label reveal">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+          CLASSIFIED VAULT
+        </div>
+        <h2 class="vault-title reveal reveal-delay-1" id="vault-title">
+          Four Pillars. All Classified.
+        </h2>
+        <p class="vault-sub reveal reveal-delay-2">
+          What's inside GradSetu stays locked until launch day. These aren't just features — these are shifts.
+        </p>
+      </div>
+
+      <div class="vault-grid">
+
+        <!-- Card 01 -->
+        <article class="classified-card reveal" aria-label="Classified Pillar 01">
+          <div class="card-top-row">
+            <div class="card-tag">[CLASSIFIED // 01]</div>
+            <div class="card-lock-badge" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+            </div>
+          </div>
+          <h3 class="card-title">The Unfiltered Lens</h3>
+          <p class="card-body">
+            What happens when marketing noise is stripped away? You'll see what matters.
+          </p>
+          <div class="card-unlock-tag">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            UNLOCKS NOV 20, 12:00 PM IST
+          </div>
+        </article>
+
+        <!-- Card 02 -->
+        <article class="classified-card reveal reveal-delay-1" aria-label="Classified Pillar 02">
+          <div class="card-top-row">
+            <div class="card-tag">[CLASSIFIED // 02]</div>
+            <div class="card-lock-badge" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+            </div>
+          </div>
+          <h3 class="card-title">The Hidden Equation</h3>
+          <p class="card-body">
+            Every decision has a real price tag and an equal outcome.
+          </p>
+          <div class="card-unlock-tag">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            UNLOCKS NOV 20, 12:00 PM IST
+          </div>
+        </article>
+
+        <!-- Card 03 -->
+        <article class="classified-card reveal reveal-delay-2" aria-label="Classified Pillar 03">
+          <div class="card-top-row">
+            <div class="card-tag">[CLASSIFIED // 03]</div>
+            <div class="card-lock-badge" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+            </div>
+          </div>
+          <h3 class="card-title">Beyond The Boundary Wall</h3>
+          <p class="card-body">
+            Why should your ambition stop at your own college gate?
+          </p>
+          <div class="card-unlock-tag">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            UNLOCKS NOV 20, 12:00 PM IST
+          </div>
+        </article>
+
+        <!-- Card 04 -->
+        <article class="classified-card reveal reveal-delay-3" aria-label="Classified Pillar 04">
+          <div class="card-top-row">
+            <div class="card-tag">[CLASSIFIED // 04]</div>
+            <div class="card-lock-badge" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+            </div>
+          </div>
+          <h3 class="card-title">The Inner Circle</h3>
+          <p class="card-body">
+            Verified by those who've been inside. Built for those who refuse to guess their future.
+          </p>
+          <div class="card-unlock-tag">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            UNLOCKS NOV 20, 12:00 PM IST
+          </div>
+        </article>
+
+      </div><!-- /vault-grid -->
+    </div>
+  </section>
+
+
+  <!-- ===========================================================
+       PAGE 6: ACCESS / WAITLIST MULTI-STEP REGISTRATION (#access)
+       =========================================================== -->
+  <section id="access" aria-labelledby="access-title">
+    <div class="container">
+
+      <div class="access-inner">
+
+        <!-- Left: Context & Perks -->
+        <div class="access-left">
+          <div class="section-label reveal">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="16" rx="2"></rect>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            EARLY ACCESS
+          </div>
+          <h2 class="access-title reveal reveal-delay-1" id="access-title">
+            Claim Your<br /><span class="highlight-blue">Coordinates.</span>
+          </h2>
+          <p class="access-sub reveal reveal-delay-2">
+            The gate locks on launch day. Once the soft launch begins, open access ends. These passes are not retroactive.
+          </p>
+
+          <div class="perks-list">
+            <div class="perk-item reveal reveal-delay-2">
+              <div class="perk-icon-wrap" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                </svg>
+              </div>
+              <div class="perk-text">
+                <div class="perk-title">1. Day-One First Wave Access</div>
+                <div class="perk-desc">Be among the first to cross the bridge the moment it opens.</div>
+              </div>
+            </div>
+
+            <div class="perk-item reveal reveal-delay-3">
+              <div class="perk-icon-wrap" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+              </div>
+              <div class="perk-text">
+                <div class="perk-title">2. Classified Intelligence — Unlocked</div>
+                <div class="perk-desc">All four classified pillars revealed exclusively to pass holders.</div>
+              </div>
+            </div>
+
+            <div class="perk-item reveal reveal-delay-3">
+              <div class="perk-icon-wrap" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="8" r="7"></circle>
+                  <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                </svg>
+              </div>
+              <div class="perk-text">
+                <div class="perk-title">3. Founding Vanguard Status</div>
+                <div class="perk-desc">Permanent recognition for early believers who helped build the wave.</div>
+              </div>
+            </div>
+
+            <div class="perk-item reveal reveal-delay-4">
+              <div class="perk-icon-wrap" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="9" cy="7" r="4"></circle>
+                  <polyline points="16 11 18 13 22 9"></polyline>
+                </svg>
+              </div>
+              <div class="perk-text">
+                <div class="perk-title">4. Queue-Jump via Referral</div>
+                <div class="perk-desc">Move up the waitlist by inviting your campus network.</div>
+              </div>
+            </div>
+          </div>
+        </div><!-- /access-left -->
+
+        <!-- Right: Multi-Step Registration Form Card -->
+        <div class="form-card reveal reveal-delay-1">
+
+          <!-- 3-Step Progress Bar -->
+          <div class="form-progress" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="3">
+            <div class="progress-step">
+              <div class="step-indicator active" id="step-1-indicator">1</div>
+              <span class="step-label active" id="step-1-label">Identity</span>
+            </div>
+            <div class="progress-step">
+              <div class="step-indicator" id="step-2-indicator">2</div>
+              <span class="step-label" id="step-2-label">Campus & Origin</span>
+            </div>
+            <div class="progress-step">
+              <div class="step-indicator" id="step-3-indicator">3</div>
+              <span class="step-label" id="step-3-label">Final Review</span>
+            </div>
+            <div class="progress-connector" id="progress-connector">
+              <div class="progress-connector-fill" id="progress-connector-fill"></div>
+            </div>
+          </div>
+
+          <!-- Waitlist Form -->
+          <form id="waitlist-form" novalidate>
+
+            <!-- ── STEP 1: Identity ── -->
+            <div class="form-step active" id="form-step-1">
+              <h3 class="form-step-title">Step 1 — Your Identity</h3>
+
+              <!-- Full Name -->
+              <div class="field-group">
+                <label class="field-label" for="full_name">
+                  Full Name <span class="req">*</span>
+                </label>
+                <input
+                  type="text" id="full_name" name="full_name"
+                  class="field-input"
+                  placeholder="e.g., Aarav Sharma"
+                  autocomplete="name"
+                  minlength="2"
+                  required
+                />
+                <div class="field-error" id="full_name-error"></div>
+              </div>
+
+              <!-- Phone / WhatsApp Number -->
+              <div class="field-group">
+                <label class="field-label" for="whatsapp_number">
+                  Phone Number (WhatsApp) <span class="req">*</span>
+                </label>
+                <div class="phone-field-wrapper" id="phone-wrapper">
+                  <span class="phone-prefix">🇮🇳 +91</span>
+                  <input
+                    type="tel" id="whatsapp_number" name="whatsapp_number"
+                    class="field-input"
+                    placeholder="98765 43210"
+                    maxlength="10"
+                    pattern="[6-9]\d{9}"
+                    inputmode="numeric"
+                    autocomplete="tel"
+                    required
+                  />
+                </div>
+                <div class="field-error" id="whatsapp_number-error"></div>
+              </div>
+
+              <!-- Email -->
+              <div class="field-group">
+                <label class="field-label" for="email">
+                  Email Address <span class="req">*</span>
+                </label>
+                <input
+                  type="email" id="email" name="email"
+                  class="field-input"
+                  placeholder="you@domain.com"
+                  autocomplete="email"
+                  required
+                />
+                <div class="field-error" id="email-error"></div>
+              </div>
+
+              <!-- Next Button -->
+              <div class="form-actions">
+                <button type="button" id="btn-next-step" class="btn-next">
+                  Continue to Campus Info &nbsp;→
+                </button>
+              </div>
+            </div><!-- /form-step-1 -->
+
+            <!-- ── STEP 2: Campus & Origin Coordinates ── -->
+            <div class="form-step" id="form-step-2">
+              <h3 class="form-step-title">Step 2 — Campus & Origin Coordinates</h3>
+
+              <!-- College Name -->
+              <div class="field-group">
+                <label class="field-label" for="college_name">
+                  College Name <span class="req">*</span>
+                </label>
+                <input
+                  type="text" id="college_name" name="college_name"
+                  class="field-input"
+                  placeholder="Enter your full college / university name"
+                  required
+                />
+                <div class="field-error" id="college_name-error"></div>
+              </div>
+
+              <!-- College City -->
+              <div class="field-group">
+                <label class="field-label" for="college_city">
+                  College City <span class="req">*</span>
+                </label>
+                <input
+                  type="text" id="college_city" name="college_city"
+                  class="field-input"
+                  placeholder="City where your campus is located (e.g., Mumbai, Pune, Delhi)"
+                  required
+                />
+                <div class="field-error" id="college_city-error"></div>
+              </div>
+
+              <!-- Department / Branch -->
+              <div class="field-group">
+                <label class="field-label" for="department">
+                  Department / Branch <span class="req">*</span>
+                </label>
+                <div class="select-wrapper">
+                  <select id="department" name="department" class="field-select" required>
+                    <option value="">Select your department</option>
+                    <option value="CSE / Computer Science">CSE / Computer Science</option>
+                    <option value="CSE (AI & ML / Data Science)">CSE (AI &amp; ML / Data Science)</option>
+                    <option value="Information Technology (IT)">Information Technology (IT)</option>
+                    <option value="ECE / Electronics">ECE / Electronics</option>
+                    <option value="Mechanical / Civil / Core">Mechanical / Civil / Core</option>
+                    <option value="Management / Commerce / BBA">Management / Commerce / BBA</option>
+                    <option value="Other">Other (Specify)</option>
+                  </select>
+                </div>
+                <div class="field-error" id="department-error"></div>
+              </div>
+
+              <!-- Year of Study -->
+              <div class="field-group">
+                <label class="field-label">
+                  Year of Study <span class="req">*</span>
+                </label>
+                <div class="pill-selector" role="radiogroup" aria-label="Year of study">
+                  <button type="button" class="pill-option" data-year="1st Year">1st Year</button>
+                  <button type="button" class="pill-option" data-year="2nd Year">2nd Year</button>
+                  <button type="button" class="pill-option" data-year="3rd Year">3rd Year</button>
+                  <button type="button" class="pill-option" data-year="4th Year">4th Year</button>
+                  <button type="button" class="pill-option" data-year="5th Year / Dual Degree">5th Year / Dual Degree</button>
+                  <button type="button" class="pill-option" data-year="Class 12 / Aspirant">Class 12 / Aspirant</button>
+                </div>
+                <div class="field-error" id="year-error"></div>
+              </div>
+
+              <!-- Hometown / Native City -->
+              <div class="field-group">
+                <label class="field-label" for="hometown_city">
+                  Hometown / Native City <span class="req">*</span>
+                  <span style="font-weight:400; color: var(--secondary-text); font-size:11px; margin-left:4px;">(Different from college city)</span>
+                </label>
+                <input
+                  type="text" id="hometown_city" name="hometown_city"
+                  class="field-input"
+                  placeholder="e.g., Indore, Madhya Pradesh / Ahmedabad, Gujarat"
+                  required
+                />
+                <div class="field-error" id="hometown_city-error"></div>
+              </div>
+
+              <!-- Languages Known -->
+              <div class="field-group">
+                <label class="field-label">
+                  Languages Known <span class="req">*</span>
+                  <span style="font-weight:400; color: var(--secondary-text); font-size:11px; margin-left:4px;">(Select all that apply)</span>
+                </label>
+                <div class="lang-pills" id="lang-pills-container">
+                  <button type="button" class="lang-pill" data-lang="English">English</button>
+                  <button type="button" class="lang-pill" data-lang="Hindi">Hindi</button>
+                  <button type="button" class="lang-pill" data-lang="Marathi">Marathi</button>
+                  <button type="button" class="lang-pill" data-lang="Gujarati">Gujarati</button>
+                  <button type="button" class="lang-pill" data-lang="Tamil">Tamil</button>
+                  <button type="button" class="lang-pill" data-lang="Telugu">Telugu</button>
+                  <button type="button" class="lang-pill" data-lang="Kannada">Kannada</button>
+                  <button type="button" class="lang-pill" data-lang="Bengali">Bengali</button>
+                  <button type="button" class="lang-pill" data-lang="Malayalam">Malayalam</button>
+                  <button type="button" class="lang-pill" data-lang="Punjabi">Punjabi</button>
+                  <button type="button" class="lang-pill" data-lang="Odia">Odia</button>
+                  <button type="button" class="lang-pill" data-lang="Marwari">Marwari</button>
+                  <button type="button" class="lang-add-btn" id="lang-add-btn">+ Add Language</button>
+                </div>
+                <div class="lang-custom-input" id="lang-custom-wrap">
+                  <input type="text" id="lang-custom-input" placeholder="Type a language…" />
+                  <button type="button" id="lang-custom-add">Add</button>
+                </div>
+                <div class="field-error" id="lang-error"></div>
+              </div>
+
+              <!-- Form Actions Step 2 -->
+              <div class="form-actions">
+                <button type="button" id="btn-back-step" class="btn-back">← Back</button>
+                <button type="button" id="btn-review-step" class="btn-next">
+                  Review Coordinates &nbsp;→
+                </button>
+              </div>
+
+            </div><!-- /form-step-2 -->
+
+            <!-- ── STEP 3: Final Review & Consent ── -->
+            <div class="form-step" id="form-step-3">
+              <h3 class="form-step-title">Step 3 — Final Review & Confirmation</h3>
+
+              <div class="review-summary-card">
+                <!-- Identity Review -->
+                <div class="review-section">
+                  <div class="review-section-header">
+                    <span class="review-section-title">Identity Details</span>
+                    <button type="button" class="btn-edit-step" id="btn-edit-step1">Edit</button>
+                  </div>
+                  <div class="review-item">
+                    <span class="review-item-label">Full Name:</span>
+                    <span class="review-item-value" id="review-name">—</span>
+                  </div>
+                  <div class="review-item">
+                    <span class="review-item-label">Phone:</span>
+                    <span class="review-item-value" id="review-phone">—</span>
+                  </div>
+                  <div class="review-item">
+                    <span class="review-item-label">Email:</span>
+                    <span class="review-item-value" id="review-email">—</span>
+                  </div>
+                </div>
+
+                <!-- Campus & Origin Review -->
+                <div class="review-section">
+                  <div class="review-section-header">
+                    <span class="review-section-title">Campus & Origin</span>
+                    <button type="button" class="btn-edit-step" id="btn-edit-step2">Edit</button>
+                  </div>
+                  <div class="review-item">
+                    <span class="review-item-label">College:</span>
+                    <span class="review-item-value" id="review-college">—</span>
+                  </div>
+                  <div class="review-item">
+                    <span class="review-item-label">Branch & Year:</span>
+                    <span class="review-item-value" id="review-branch-year">—</span>
+                  </div>
+                  <div class="review-item">
+                    <span class="review-item-label">Hometown:</span>
+                    <span class="review-item-value" id="review-hometown">—</span>
+                  </div>
+                  <div class="review-item">
+                    <span class="review-item-label">Languages:</span>
+                    <span class="review-item-value" id="review-languages">—</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Privacy Notice Box -->
+              <div class="privacy-notice-box">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; color:var(--primary-blue);">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+                <span>Zero-Spam Guarantee: Your coordinates are encrypted and exclusively used for GradSetu early access.</span>
+              </div>
+
+              <!-- Privacy Consent Checkbox -->
+              <label class="consent-group" for="consent-check">
+                <input type="checkbox" id="consent-check" class="consent-checkbox" required />
+                <span class="consent-label">
+                  I want early access to GradSetu on Nov 20. Keep my coordinates encrypted and spam-free.
+                </span>
+              </label>
+
+              <!-- Final Submit Actions -->
+              <div class="form-actions">
+                <button type="button" id="btn-back-to-step2" class="btn-back">← Back</button>
+                <button type="submit" id="btn-submit" class="btn-submit">
+                  <span class="btn-text">Lock In My Pass &nbsp;→</span>
+                  <span class="btn-spinner"></span>
+                </button>
+              </div>
+
+            </div><!-- /form-step-3 -->
+
+          </form><!-- /waitlist-form -->
+
+        </div><!-- /form-card -->
+      </div><!-- /access-inner -->
+    </div>
+  </section>
+
+</main>
+
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer id="site-footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-logo">
+      <img src="logo.jpeg" alt="GradSetu Logo" class="footer-logo-img" />
+    </div>
+    <p class="footer-tagline">Better Data. Smarter Decisions. Brighter Futures.</p>
+    <nav class="footer-links" aria-label="Footer links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms</a>
+      <a href="mailto:hello@gradsetu.in">Contact</a>
+      <a href="admin.html" style="color: var(--secondary-text); display: inline-flex; align-items: center; gap: 5px;" title="Founder Control Dashboard">
+        🔒 Founder Console
+      </a>
+    </nav>
+    <p class="footer-copy">
+      © 2026 GradSetu. All rights reserved. The bridge is being built.
+    </p>
+  </div>
+</footer>
+
+
+<!-- ============================================================
+     MODAL OVERLAY (Pass View & Returning User Search)
+     ============================================================ -->
+<div id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-label">
+  <div class="modal-box" id="modal-box">
+    <button class="modal-close" id="modal-close" aria-label="Close modal">×</button>
+
+    <!-- ── VIEW 1: Form Trigger (Modal redirect) ── -->
+    <div id="modal-form-view" class="modal-content" style="display:none; text-align:center;">
+      <h2 id="modal-label" style="font-size:24px; font-weight:800; color:var(--primary-text); margin-bottom:12px;">
+        Lock In Your Early Access Pass
+      </h2>
+      <p style="font-size:15px; color:var(--secondary-text); margin-bottom:24px;">
+        Complete your coordinates on the registration card to secure your spot.
+      </p>
+      <button class="btn-primary" onclick="document.getElementById('modal-overlay').classList.remove('open'); document.getElementById('access').scrollIntoView({behavior:'smooth'}); document.body.style.overflow='';"
+              style="width:100%; justify-content:center;">
+        Take Me to Registration &nbsp;→
+      </button>
+    </div>
+
+    <!-- ── VIEW 2: Check Pass (returning user) ── -->
+    <div id="modal-check-view" class="modal-content check-pass-modal" style="display:none;">
+      <h2 id="modal-label" class="check-pass-title">Find Your Pass 🎫</h2>
+      <p class="check-pass-sub">Enter your registered email or WhatsApp number to retrieve your Early Access Pass.</p>
+
+      <form id="check-pass-form" novalidate>
+        <div class="field-group" style="text-align:left;">
+          <label class="field-label" for="check-identifier">Email or WhatsApp Number</label>
+          <input
+            type="text" id="check-identifier"
+            class="field-input"
+            placeholder="you@domain.com  or  9876543210"
+            autocomplete="off"
+            required
+          />
+        </div>
+        <div style="margin-top:14px;">
+          <button type="submit" id="btn-check-pass-submit" class="btn-submit" style="width:100%; justify-content:center;">
+            Find My Pass &nbsp;→
+          </button>
+        </div>
+      </form>
+
+      <p style="margin-top:24px; font-size:13px; color:var(--secondary-text); text-align:center;">
+        Not yet registered?
+        <a href="#access" onclick="document.getElementById('modal-overlay').classList.remove('open'); document.body.style.overflow=''; document.getElementById('access').scrollIntoView({behavior:'smooth'});"
+           style="color:var(--primary-blue); font-weight:700;">Claim your pass here &nbsp;→</a>
+      </p>
+    </div>
+
+    <!-- ── VIEW 3: Digital Pass Confirmation Card ── -->
+    <div id="modal-pass-view" class="modal-content pass-view" style="display:none;">
+
+      <div class="pass-confirmed-header">
+        <h2 class="pass-confirmed-title">You're On The List.</h2>
+        <p class="pass-confirmed-sub">Your coordinates are secured. The next shift starts with you.</p>
+      </div>
+
+      <!-- Digital Pass Card -->
+      <div class="pass-card">
+        <div class="pass-card-accent-bar"></div>
+
+        <div class="pass-header">
+          <div class="pass-brand"><img src="logo.jpeg" alt="GradSetu Logo" class="pass-logo-img" /></div>
+          <div class="pass-type-badge">EARLY ACCESS PASS</div>
+        </div>
+
+        <div class="pass-divider"></div>
+
+        <div class="pass-holder-label">PASS HOLDER</div>
+        <div class="pass-holder-name" id="pass-name">—</div>
+        <div class="pass-holder-college" id="pass-college">—</div>
+        <div class="pass-holder-origin" id="pass-origin" style="display:none;">—</div>
+
+        <div class="pass-details">
+          <div class="pass-detail-item">
+            <div class="pass-detail-label">QUEUE COORDINATES</div>
+            <div class="pass-detail-value" id="pass-number">#GS-0101</div>
+          </div>
+          <div class="pass-detail-item">
+            <div class="pass-detail-label">GATE OPENS IN</div>
+            <div class="pass-countdown">
+              <div class="pass-cd-block">
+                <div class="pass-cd-num" id="pass-cd-days">—</div>
+                <div class="pass-cd-label">DAYS</div>
+              </div>
+              <div class="pass-cd-sep">:</div>
+              <div class="pass-cd-block">
+                <div class="pass-cd-num" id="pass-cd-hours">—</div>
+                <div class="pass-cd-label">HRS</div>
+              </div>
+              <div class="pass-cd-sep">:</div>
+              <div class="pass-cd-block">
+                <div class="pass-cd-num" id="pass-cd-mins">—</div>
+                <div class="pass-cd-label">MINS</div>
+              </div>
+              <div class="pass-cd-sep">:</div>
+              <div class="pass-cd-block">
+                <div class="pass-cd-num" id="pass-cd-secs">—</div>
+                <div class="pass-cd-label">SECS</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /pass-card -->
+
+      <!-- Referral Engine -->
+      <div class="referral-section" style="width:100%;">
+        <h3 class="referral-title">⚡ Jump the Queue</h3>
+        <p class="referral-sub">
+          Invite friends to move up the waitlist. Every referral earns you higher priority and exclusive badges.
+        </p>
+
+        <div class="referral-link-box">
+          <span class="referral-link-text" id="pass-ref-link">https://gradsetu.in/?ref=GS-XXX000</span>
+          <button type="button" class="btn-copy" id="btn-copy-link">Copy Link</button>
+        </div>
+
+        <div class="referral-share-btns">
+          <a id="btn-whatsapp-share" href="#" target="_blank" rel="noopener" class="btn-whatsapp">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+            Share on WhatsApp
+          </a>
+        </div>
+      </div><!-- /referral-section -->
+
+      <!-- Milestone Ladder -->
+      <div class="milestone-ladder" style="width:100%;">
+        <div class="milestone-title">🏆 Milestone Rewards</div>
+
+        <div class="milestone-item">
+          <div class="milestone-num" id="ms-1-num">3</div>
+          <div class="milestone-info">
+            <div class="milestone-action">Invite 3 Friends</div>
+            <div class="milestone-reward">🥉 Founding Vanguard Badge</div>
+          </div>
+        </div>
+
+        <div class="milestone-item">
+          <div class="milestone-num" id="ms-2-num">10</div>
+          <div class="milestone-info">
+            <div class="milestone-action">Invite 10 Friends</div>
+            <div class="milestone-reward">⚡ Day-01 First Wave Access</div>
+          </div>
+        </div>
+
+        <div class="milestone-item">
+          <div class="milestone-num" id="ms-3-num">25</div>
+          <div class="milestone-info">
+            <div class="milestone-action">Invite 25 Friends</div>
+            <div class="milestone-reward">🌐 GradSetu Core Circle</div>
+          </div>
+        </div>
+
+      </div><!-- /milestone-ladder -->
+
+    </div><!-- /modal-pass-view -->
+
+  </div><!-- /modal-box -->
+</div><!-- /modal-overlay -->
+
+
+<!-- ============================================================
+     SCRIPTS (ES Modules)
+     ============================================================ -->
+<script type="module" src="js/app.js"></script>
+
+</body>
+</html>
