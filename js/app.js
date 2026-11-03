@@ -63,6 +63,30 @@ function initHeader() {
   }, { passive: true });
 }
 
+// ── Move to Top ───────────────────────────────────────────────
+function initBackToTop() {
+  const btn = document.getElementById('btn-back-to-top');
+  if (!btn) return;
+
+  let clickCount = 0;
+  let clickTimer = null;
+
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Secret founder shortcut: 3 quick clicks navigates to /admin
+    clickCount++;
+    clearTimeout(clickTimer);
+    if (clickCount >= 3) {
+      window.location.href = '/admin';
+      clickCount = 0;
+    } else {
+      clickTimer = setTimeout(() => { clickCount = 0; }, 600);
+    }
+  });
+}
+
 // ── Mobile Nav ────────────────────────────────────────────────
 function initMobileNav() {
   const toggle  = document.getElementById('nav-toggle');
@@ -739,6 +763,7 @@ function boot() {
   // Init systems
   ToastManager.init();
   initHeader();
+  initBackToTop();
   initMobileNav();
   initScrollReveal();
   initHeroCTA();
