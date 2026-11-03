@@ -125,6 +125,32 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
+  // --- API Route: Live Waitlist Count ---
+  if (urlPath === '/api/count') {
+    const BASE_COUNT = 79;
+    try {
+      const resp = await fetch(`${APPS_SCRIPT_URL}?action=ping`);
+      const data = await resp.json();
+      const rows = (data && typeof data.totalRows === 'number') ? data.totalRows : 0;
+      const total = BASE_COUNT + rows;
+      sendJSON(res, 200, {
+        status: 'success',
+        sheetRows: rows,
+        totalCount: total,
+        baseCount: BASE_COUNT
+      });
+    } catch (err) {
+      console.warn('[Server] /api/count ping failed, returning baseline:', err.message);
+      sendJSON(res, 200, {
+        status: 'fallback',
+        sheetRows: 0,
+        totalCount: BASE_COUNT,
+        baseCount: BASE_COUNT
+      });
+    }
+    return;
+  }
+
   // --- API Route: Admin Data ---
   if (urlPath === '/api/admin/data') {
     const key = parsedUrl.query.key || ADMIN_PASSKEY;

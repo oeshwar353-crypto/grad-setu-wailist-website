@@ -372,6 +372,59 @@ class GoogleSheetsService {
   }
 
   /**
+   * Fetch Live Waitlist Count (79 baseline + Google Sheets registrations)
+   */
+  async getLiveWaitlistCount() {
+    const baseCount = 79;
+
+    // 1. Try server proxy /api/count first (works on localhost & Vercel)
+    try {
+      const origin = (typeof window !== 'undefined' && window.location && window.location.origin) ? window.location.origin : 'http://localhost:3000';
+      const resp = await fetch(`${origin}/api/count`);
+      if (resp.ok) {
+        const json = await resp.json();
+        if (typeof json.totalCount === 'number') {
+          const count = Math.max(baseCount, json.totalCount);
+          try { localStorage.setItem('gs_cached_count', count); } catch (e) {}
+          return count;
+        }
+        if (typeof json.sheetRows === 'number') {
+          const count = baseCount + json.sheetRows;
+          try { localStorage.setItem('gs_cached_count', count); } catch (e) {}
+          return count;
+        }
+      }
+    } catch (proxyErr) {}
+
+    // 2. Direct Google Apps Script ping fallback
+    const webAppUrl = this.getWebAppUrl();
+    if (webAppUrl && webAppUrl.startsWith('https://script.google.com')) {
+      try {
+        const pingUrl = webAppUrl + (webAppUrl.indexOf('?') === -1 ? '?' : '&') + 'action=ping';
+        const res = await fetch(pingUrl);
+        if (res.ok) {
+          const json = await res.json();
+          if (typeof json.totalRows === 'number') {
+            const count = baseCount + json.totalRows;
+            try { localStorage.setItem('gs_cached_count', count); } catch (e) {}
+            return count;
+          }
+        }
+      } catch (gasErr) {}
+    }
+
+    // 3. Fallback: cached count or baseline (always >= 79)
+    try {
+      const cached = localStorage.getItem('gs_cached_count');
+      if (cached && !isNaN(Number(cached))) {
+        return Math.max(baseCount, Number(cached));
+      }
+    } catch (e) {}
+
+    return baseCount;
+  }
+
+  /**
    * Lookup Pass for returning user (by Email or WhatsApp)
    */
   async lookupUser(query) {

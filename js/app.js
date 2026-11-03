@@ -80,19 +80,46 @@ function initMobileNav() {
   });
 }
 
-// ── Social Proof Counter ──────────────────────────────────────
-function updateSocialProof() {
-  try {
-    const users = googleSheetsService.getLocalUsers();
-    // Baseline waitlist count of 79 + any new user registrations beyond seeds
-    const baseCount = 79;
-    const additional = Math.max(0, (users ? users.length : 0) - 5);
-    const count = baseCount + additional;
-    const el = document.getElementById('proof-count');
-    if (!el) return;
+// ── Social Proof Real-Time Counter ────────────────────────────
+let liveWaitlistCount = 79;
 
-    el.textContent = `${count.toLocaleString('en-IN')}+ students across India`;
-  } catch { /* silent */ }
+async function updateSocialProof() {
+  const el = document.getElementById('proof-count');
+  if (!el) return;
+
+  // 1. Immediately guarantee at least 79+ baseline on screen (never 0+)
+  try {
+    const cached = localStorage.getItem('gs_cached_count');
+    if (cached && !isNaN(Number(cached))) {
+      liveWaitlistCount = Math.max(79, Number(cached));
+    }
+  } catch (e) {}
+  el.textContent = `${liveWaitlistCount.toLocaleString('en-IN')}+ students across India`;
+
+  // 2. Fetch live count from Google Sheets in real time
+  try {
+    const live = await googleSheetsService.getLiveWaitlistCount();
+    if (typeof live === 'number' && live >= 79) {
+      liveWaitlistCount = live;
+      el.textContent = `${liveWaitlistCount.toLocaleString('en-IN')}+ students across India`;
+    }
+  } catch (err) {
+    // Graceful fallback to baseline
+  }
+}
+
+function incrementSocialProof() {
+  liveWaitlistCount = Math.max(79, liveWaitlistCount) + 1;
+  try {
+    localStorage.setItem('gs_cached_count', liveWaitlistCount);
+  } catch (e) {}
+
+  const el = document.getElementById('proof-count');
+  if (el) {
+    el.textContent = `${liveWaitlistCount.toLocaleString('en-IN')}+ students across India`;
+    el.classList.add('count-updated');
+    setTimeout(() => el.classList.remove('count-updated'), 1200);
+  }
 }
 
 // ── Modal Controller ──────────────────────────────────────────
@@ -556,6 +583,7 @@ const AccessForm = {
           ToastManager.show('Welcome back! Your Early Access Pass is active.', 'info');
         } else {
           ToastManager.show('Coordinates locked in! Your Pass is live.', 'success');
+          incrementSocialProof();
         }
 
         try {
@@ -580,6 +608,7 @@ const AccessForm = {
         launchConfetti();
       } catch (e) {}
       ToastManager.show('Coordinates locked in! Your Pass is live.', 'success');
+      incrementSocialProof();
     } finally {
       if (btn) {
         btn.disabled = false;
@@ -748,8 +777,9 @@ function boot() {
     initCarouselNotes();
   }
 
-  // Social proof
+  // Social proof real-time count
   updateSocialProof();
+  setInterval(updateSocialProof, 30000);
 }
 
 document.addEventListener('DOMContentLoaded', boot);

@@ -254,12 +254,15 @@ function doGet(e) {
     var sheet = getTargetSheet();
     var values = sheet.getDataRange().getValues();
     
-    if (action === "ping") {
+    if (action === "ping" || action === "count") {
+      var rows = Math.max(0, values.length - 1);
       return createJsonResponse({
         status: "ready",
         service: "GradSetu Waitlist API",
         sheetName: sheet.getName(),
-        totalRows: Math.max(0, values.length - 1)
+        totalRows: rows,
+        baseCount: 79,
+        totalCount: 79 + rows
       });
     }
     

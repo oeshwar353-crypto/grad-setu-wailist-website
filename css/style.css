@@ -639,6 +639,18 @@ nav[aria-label="Main navigation"] {
   box-shadow: var(--shadow-xs);
 }
 
+#proof-count {
+  font-weight: 700;
+  color: var(--primary-text);
+  transition: color 0.3s ease, transform 0.3s ease;
+  display: inline-block;
+}
+
+#proof-count.count-updated {
+  color: var(--primary-blue);
+  transform: scale(1.08);
+}
+
 .avatar-stack .av:first-child {
   margin-left: 0;
 }
