@@ -129,8 +129,20 @@ const server = http.createServer(async (req, res) => {
   if (urlPath === '/api/count') {
     const BASE_COUNT = 79;
     try {
-      const resp = await fetch(`${APPS_SCRIPT_URL}?action=ping`);
-      const data = await resp.json();
+      let data = null;
+      for (let attempt = 0; attempt < 2; attempt++) {
+        try {
+          const resp = await fetch(`${APPS_SCRIPT_URL}?action=ping`, { redirect: 'follow' });
+          if (resp.ok) {
+            data = await resp.json();
+            break;
+          }
+        } catch (retryErr) {
+          if (attempt === 1) throw retryErr;
+          await new Promise(r => setTimeout(r, 600));
+        }
+      }
+
       const rows = (data && typeof data.totalRows === 'number') ? data.totalRows : 0;
       const total = BASE_COUNT + rows;
       sendJSON(res, 200, {

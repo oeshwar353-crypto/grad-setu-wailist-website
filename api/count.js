@@ -12,8 +12,20 @@ export default async function handler(req, res) {
   }
 
   try {
-    const resp = await fetch(`${APPS_SCRIPT_URL}?action=ping`);
-    const data = await resp.json();
+    let data = null;
+    for (let attempt = 0; attempt < 2; attempt++) {
+      try {
+        const resp = await fetch(`${APPS_SCRIPT_URL}?action=ping`, { redirect: 'follow' });
+        if (resp.ok) {
+          data = await resp.json();
+          break;
+        }
+      } catch (retryErr) {
+        if (attempt === 1) throw retryErr;
+        await new Promise(r => setTimeout(r, 600));
+      }
+    }
+
     const rows = (data && typeof data.totalRows === 'number') ? data.totalRows : 0;
     return res.status(200).json({
       status: 'success',
