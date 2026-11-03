@@ -42,7 +42,7 @@ node server.js
 ```
 
 - **Waitlist Landing Page**: [http://localhost:3000/](http://localhost:3000/)
-- **Founder Admin Console**: [http://localhost:3000/admin](http://localhost:3000/admin) *(Passkey: `gradsetu2026`)*
+- **Founder Admin Console**: [http://localhost:3000/admin](http://localhost:3000/admin) *(Founder passkey required)*
 
 ### 2. Google Sheets Setup
 
@@ -88,3 +88,4 @@ node server.js
 - Client-secret verification on all Google Sheets API calls (`gs_sec_launch_nov2026_gradsetu`).
 - Encrypted student coordinate handling with zero-spam privacy guarantee.
 - Founder admin passkey protection with instant session locking.
+
